@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reward System</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .container {
+        position: relative;
+        width: 120px;
+        height: 600px;
+        background: #fff5cc;
+        border-radius: 30px;
+        border: 4px solid #ffb347;
+        box-shadow: 0 0 30px gold;
+        overflow: hidden;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        right: 10px;
+        height: 2px;
+        background: #ffb347;
+        box-shadow: 0 0 5px #ffb347;
+      }
+
+      .container .line {
+        position: absolute;
+        left: 10px;
+        right: 10px;
+        height: 2px;
+        background: #ffb347;
+        box-shadow: 0 0 5px #ffb347;
+      }
+
+      .wrapper {
+        position: relative;
+        width: 120px;
+        height: 660px; /* 600 container height + 60 for the circle */
+        margin: auto;
+      }
+
+      .gift {
+        position: absolute;
+        bottom: 100%; /* right above the container */
+        left: 50%;
+        transform: translateX(-50%);
+        background: url("https://cdn-icons-png.flaticon.com/512/6664/6664427.png")
+          no-repeat center/contain;
+        width: 60px;
+        height: 60px;
+      }
+
+      .fill {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(to top, #f6d365, #fda085);
+        transition: height 0.5s;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        width: 50px; /* smaller size */
+        height: 50px;
+        background: url("https://cdn-icons-png.flaticon.com/512/508/508786.png")
+          no-repeat center/contain;
+        left: 50%;
+        bottom: -0px; /* place it below the container */
+        transform: translateX(-50%);
+        transition: bottom 0.5s;
+        z-index: 2; /* higher */
+      }
+
+      .answer-box {
+        position: absolute;
+        bottom: -70px; /* below the heart */
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border: 2px solid #ffb347;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-weight: bold;
+        color: #ff7f50;
+        box-shadow: 0 0 10px rgba(255, 183, 77, 0.5);
+        font-size: 25px;
+        z-index: 1;
+        width: 400px;
+        height: 25px;
+      }
+
+      .answer-input{
+        background: transparent;
+        border: none;
+      }
+    </style>
+
+    <body>
+      <div class="wrapper">
+        <div class="gift"></div>
+        <div class="container">
+          <!-- Lines corresponding to goals -->
+          <div class="line" style="bottom: 90%"></div>
+          <!-- Evolution and prognosis 10% -->
+          <div class="line" style="bottom: 65%"></div>
+          <!-- Thrombophilias 25% -->
+          <div class="line" style="bottom: 60%"></div>
+          <!-- Purpose and objectives 5% -->
+          <div class="line" style="bottom: 45%"></div>
+          <!-- Materials and methods 15% -->
+          <div class="line" style="bottom: 25%"></div>
+          <!-- Results 20% -->
+          <div class="line" style="bottom: 10%"></div>
+          <!-- Discussion 15% -->
+          <div class="line" style="bottom: 5%"></div>
+          <!-- Limitations 5% -->
+          <!-- Cases and conclusions can be below or marked similarly if needed -->
+          <div class="fill" id="fill" style="height: 0%"></div>
+        </div>
+        <div class="heart" id="gift"></div>
+        <div class="answer-box">
+          Reward word: <input type="text" class="answer-input" placeholder="     " />
+        </div>
+      </div>
+    </body>
+
+
+    <script>
+        const cklj = {
+          "a": 5,
+          "b": 5,
+          "c": 15,
+          "d": 20,
+          "e": 25,
+          "f": 5,
+          "g": 25,
+          "i": 10,
+        };
+
+        const usedWords = [];
+      
+        const input = document.querySelector(".answer-input");
+        const fill = document.getElementById("fill");
+      
+        let currentFill = 0;
+      
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            const word = input.value.trim().toLowerCase();
+            if (cklj[word] && !usedWords.includes(word)) {
+              usedWords.push(word);
+              currentFill += cklj[word];
+              if (currentFill > 100) currentFill = 100;
+              fill.style.height = currentFill + "%";
+              input.value = ""; // clear input
+            } else if (usedWords.includes(word)){
+                alert("you got the reward for that chapter already baby<3")
+            } else {
+                alert("wrong word baby<3")
+            }
+          }
+        });
+      </script>
+
+  </head>
+</html>
